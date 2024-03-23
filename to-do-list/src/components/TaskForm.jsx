@@ -26,7 +26,6 @@ export default function TaskForm() {
       return;
     }
 
-
     const newTaskDetails = [
       ...newTask,
       { id: crypto.randomUUID(), addTask }
@@ -40,7 +39,7 @@ export default function TaskForm() {
 
   return (
     <div>
-      {newTask.map((task) => <h3 key={task.id}>{task.addTask}</h3>)}
+      {/* {newTask.map((task) => <h3 id='newTasks' key={task.id}>{task.addTask}</h3>)} */}
       <form onSubmit={(e) => e.preventDefault()}>
         <label htmlFor="task">TASK </label>
         <input id="task" type="text" placeholder="Write a new task" onChange={handleNewTask} value={addTask} />

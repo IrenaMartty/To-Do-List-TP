@@ -1,6 +1,10 @@
 
-export default function Task() {
+export default function Task({task, deleteTask, id}) {
   return (
-    <div></div>
+    <>
+<p>{task}</p>
+<button onClick={()=> deleteTask(id)}>X</button>
+
+    </>
   )
 }
