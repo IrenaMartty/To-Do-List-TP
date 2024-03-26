@@ -1,20 +1,25 @@
 import { useState } from 'react';
- 
-export default function TaskForm() {
-  const [newTask, setNewTask] = useState(JSON.parse(localStorage.getItem("newTask")) || []);
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+
+
+
+export default function TaskForm({ newTask, setNewTask }) {
   const [addTask, setAddTask] = useState("");
   const [taskError, setTaskError] = useState("");
-
+  const [showAlert, setShowAlert] = useState(false); 
 
   function handleNewTask(e) {
     const taskValue = e.target.value;
     setAddTask(taskValue);
 
-
     if (taskValue.trim() === "") {
       setTaskError("Please enter a task.");
+      setShowAlert(true);
     } else if (taskValue.length > 15) {
       setTaskError("Maximum 15 characters allowed for the task.");
+      setShowAlert(true);
     } else {
       setTaskError("");
     }
@@ -22,30 +27,36 @@ export default function TaskForm() {
 
   function addNewTask() {
     if (!addTask.trim() || taskError) {
-      alert("Please correct the errors before adding the task.");
+      setTaskError("The task field can't be empty or longer than 15 characters.");
+      setShowAlert(true); 
       return;
     }
 
-    const newTaskDetails = [
-      ...newTask,
-      { id: crypto.randomUUID(), addTask }
-    ];
-    console.log(newTaskDetails);
-    setNewTask(newTaskDetails);
-    localStorage.setItem("newTask", JSON.stringify(newTaskDetails));
+    const newTaskDetails = {
+      id: crypto.randomUUID(), 
+      addTask: addTask
+    };
+
+    setNewTask(prevTasks => [...prevTasks, newTaskDetails]);
+    localStorage.setItem("newTask", JSON.stringify([...newTask, newTaskDetails]));
     setAddTask("");
-    
+    setShowAlert(false); 
   }
 
   return (
-    <div>
-      {/* {newTask.map((task) => <h3 id='newTasks' key={task.id}>{task.addTask}</h3>)} */}
-      <form onSubmit={(e) => e.preventDefault()}>
-        <label htmlFor="task">TASK </label>
-        <input id="task" type="text" placeholder="Write a new task" onChange={handleNewTask} value={addTask} />
-        {taskError && <p style={{ color: 'red' }}>{taskError}</p>}
-        <button type="button" onClick={addNewTask}>ADD TO MY LIST</button>
-      </form>
-    </div>
+    <Box component="form" sx={{ '& > :not(style)': { m: 1} }}>
+      <TextField
+        id="task"
+        label="Write a new task"
+        variant="outlined"
+        onChange={handleNewTask}
+        value={addTask}
+        error={taskError !== ""}
+        helperText={taskError}
+      />
+      <Button variant="contained" onClick={addNewTask} sx={{backgroundColor: 'purple', padding: 2, }}>
+        Add
+</Button>
+    </Box>
   );
 }
