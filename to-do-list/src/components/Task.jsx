@@ -18,7 +18,7 @@ export default function Task({task, deleteTask, id, completed, toggleComplete}) 
         {completed ? (
           <FaCheck fontSize={20} color='purple' />
         ) : (
-          <FaCheck fontSize={20} color='transparent' />
+          <FaCheck fontSize={20} color='#E2E1E1' />
         )}
       </button>
       <button onClick={() => deleteTask(id)}>
