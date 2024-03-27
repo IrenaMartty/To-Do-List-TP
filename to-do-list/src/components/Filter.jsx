@@ -17,12 +17,22 @@ export default function Filter({ filter, setFilter }) {
         textColor="secondary"
         indicatorColor="secondary"
         aria-label="secondary tabs example"
-     
+        sx={{
+          width: '100%',
+          alignItems: 'center',
+          
+        }}
         
       >
-        <Tab value="All" label="All" />
-        <Tab value="Incompleted" label="Pending" />
-        <Tab value="Completed" label="Completed" />
+        <Tab value="All" label="All"  sx={{
+          width: '33.33%',
+        }}/>
+        <Tab value="Incompleted" label="Pending" sx={{
+          width: '33.33%',
+        }}/>
+        <Tab value="Completed" label="Done" sx={{
+          width: '33.33%',
+        }}/>
       </Tabs>
     </div>
   );

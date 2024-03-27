@@ -18,7 +18,7 @@ export default function TaskForm({ newTask, setNewTask }) {
       setTaskError("Please enter a task.");
       setShowAlert(true);
     } else if (taskValue.length > 15) {
-      setTaskError("Maximum 15 characters allowed for the task.");
+      setTaskError("Maximum 15 characters allowed.");
       setShowAlert(true);
     } else {
       setTaskError("");
@@ -27,7 +27,7 @@ export default function TaskForm({ newTask, setNewTask }) {
 
   function addNewTask() {
     if (!addTask.trim() || taskError) {
-      setTaskError("The task field can't be empty or longer than 15 characters.");
+      setTaskError("A field can't be empty or longer than 15 characters.");
       setShowAlert(true); 
       return;
     }
@@ -44,7 +44,7 @@ export default function TaskForm({ newTask, setNewTask }) {
   }
 
   return (
-    <Box component="form" sx={{ '& > :not(style)': { m: 1} }}>
+    <Box component="form" sx={{ '& > :not(style)': { m: 1}, width:'100%', display:'flex', marginTop: '40px', marginBottom: '40px'}}>
       <TextField
         id="task"
         label="Write a new task"
@@ -53,10 +53,17 @@ export default function TaskForm({ newTask, setNewTask }) {
         value={addTask}
         error={taskError !== ""}
         helperText={taskError}
+        sx={{ width: '80%', position:'center' }} 
       />
-      <Button variant="contained" onClick={addNewTask} sx={{backgroundColor: 'purple', padding: 2, }}>
+    
+
+      <Button variant="contained" onClick={addNewTask} sx={{backgroundColor: 'purple', padding: 2, width: '20%',
+  '&:hover': {
+    backgroundColor: '#5B1668'
+  }}}>
         Add
 </Button>
+      
     </Box>
   );
 }

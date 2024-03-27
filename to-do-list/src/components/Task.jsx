@@ -22,7 +22,7 @@ export default function Task({task, deleteTask, id, completed, toggleComplete}) 
         )}
       </button>
       <button onClick={() => deleteTask(id)}>
-        <MdDelete fontSize={20} color='red' />
+        <MdDelete fontSize={20} color='orange' />
       </button>
       </div>
     </div>

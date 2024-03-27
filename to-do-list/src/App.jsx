@@ -5,6 +5,7 @@ import ContainTask from './components/ContainTask';
 import TaskForm from './components/TaskForm';
 import Filter from './components/Filter';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Box from '@mui/material/Box'
 
 function App() {
   const [newTask, setNewTask] = useState(JSON.parse(localStorage.getItem('newTask')) || []);
@@ -57,32 +58,43 @@ function App() {
   });
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={theme} >
       <>
         <Header />
-        <div
-          style={{
+        <Box
+          sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            marginTop: 50,
-            marginBottom: 50,
+            marginTop: '100',
+            height: '100%',
+            maxWidth: 1000,
+            margin: 'auto',
             width: '90%',
-            maxWidth: 1200, 
-            margin: 'auto', 
+            '@media (min-width:600px)': 
+            {width: '70%'},
+            '@media (min-width:800px)': 
+            {width: '65%'},
+            '@media (min-width:1000px)': 
+            {width: '50%'},
           }}
         >
-          <TaskForm newTask={newTask} setNewTask={setNewTask}  sx={{
-              justifyContent: 'center',
-              width: '100%', 
-              maxWidth: 800, 
-              padding: '0 20px',
-            }} />
-          <div style={{ alignItems: 'center'}}>
+          <TaskForm newTask={newTask} setNewTask={setNewTask} />
+          <Box
+            sx={{
+              width: '100%',
+              alignItems: 'center',
+              margin: 'auto',
+            }}
+          >
             <Filter filter={filter} setFilter={setFilter} />
-            <ContainTask newTask={filterTasks()} onDelete={handleDelete} toggleComplete={toggleComplete}/>
-          </div>
-        </div>
+            <ContainTask
+              newTask={filterTasks()}
+              onDelete={handleDelete}
+              toggleComplete={toggleComplete}
+            />
+          </Box>
+        </Box>
         <Footer />
       </>
     </ThemeProvider>
@@ -90,3 +102,6 @@ function App() {
 }
 
 export default App;
+
+
+
