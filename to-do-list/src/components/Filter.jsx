@@ -8,6 +8,7 @@ export default function Filter({ filter, setFilter }) {
   };
 
   console.log('Filter value:', filter)
+  
 
   return (
     <div> 
